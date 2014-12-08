@@ -14,6 +14,10 @@ mod 'concat-native',
   :git => 'https://github.com/theforeman/puppet-concat.git',
   :tag => '1.3.1'
 
+mod 'dhcp',
+  :git => 'https://github.com/puppetlabs/puppetlabs-dhcp.git',
+  :tag => '0.3.0'
+
 mod 'fail2ban',
   :git => 'https://github.com/netmanagers/puppet-fail2ban',
   :branch => 'master'
