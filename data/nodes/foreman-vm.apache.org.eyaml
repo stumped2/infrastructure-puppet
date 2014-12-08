@@ -9,14 +9,14 @@ classes:
   - dhcp_asf
 
 # Configure DHCP
-dhcp_asf::pxeserver: '192.168.0.120'
-dhcp_asf::pool_network: '192.168.0.0'
+dhcp_asf::pxeserver: '172.16.50.1'
+dhcp_asf::pool_network: '172.16.50.0'
 dhcp_asf::pool_name: 'osuosl_internal'
-dhcp_asf::pool_range: '192.168.0.2 192.168.0.255'
+dhcp_asf::pool_range: '172.16.50.2 172.16.51.255'
 # Allow OSUOSL to be a private network
 dhcp_asf::pool_gateway: ''
 dhcp_asf::interfaces:
-  - 'eth1'
+  - 'eth2'
 
 # SSL is proxied through erebus-ssl
 foreman::ssl: false
