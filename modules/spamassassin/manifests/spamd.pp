@@ -1,6 +1,6 @@
-#/etc/puppet/modules/spamassassin/manifests/init.pp
+#/etc/puppet/modules/spamassassin/manifests/spamd.pp
 
-class spamassassin (
+class spamassassin::spamd (
 
   $spamassassin_packages = [],
   $sa_update             = '/usr/bin/sa-update && /etc/init.d/spamassassin reload',
