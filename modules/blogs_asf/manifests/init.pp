@@ -5,19 +5,13 @@ class blogs_asf (
   $r_gid             = 8998,
   $r_group_present   = 'present',
   $r_groupname       = 'roblogs',
-  $t_uid             = 8997,
-  $t_gid             = 8997,
-  $t_group_present   = 'present',
-  $t_groupname       = 'tcblogs',
   $groups            = [],
   $service_ensure    = 'stopped',
   $service_name      = 'roller',
   $shell             = '/bin/bash',
   $r_user_present    = 'present',
   $r_username        = 'roblogs',
-  $t_user_present    = 'present',
-  $t_username        = 'tcblogs',
-  $required_packages = [],
+  $required_packages = ['tomcat7'],
 ){
 
 # install required packages:
@@ -47,16 +41,6 @@ class blogs_asf (
   $current_dir              = "${parent_dir}/current"
   $docroot                  = '/var/www'
 
-# tomcat specific
-  $tomcat_version           = '8'
-  $tomcat_minor             = '0'
-  $tomcat_revision_number   = '21'
-  $tomcat_release           = "${tomcat_version}.${tomcat_minor}.${tomcat_revision_number}" # lint:ignore:80chars
-  $tomcat_build             = "apache-tomcat-${tomcat_release}"
-  $t_tarball                = "${tomcat_build}.tar.gz"
-  $downloaded_t_tarball     = "${download_dir}/${t_tarball}"
-  $download_t_url           = "https://dist.apache.org/repos/dist/release/tomcat/tomcat-${tomcat_version}/v${tomcat_release}/bin/${t_tarball}"
-
   user {
     $r_username:
       ensure     => $r_user_present,
@@ -75,26 +59,6 @@ class blogs_asf (
       ensure => $r_group_present,
       name   => $r_groupname,
       gid    => $r_gid,
-  }
-
-  user {
-    $t_username:
-      ensure     => $t_user_present,
-      name       => $t_username,
-      home       => "/home/${t_username}",
-      shell      => $shell,
-      uid        => $t_uid,
-      gid        => $t_groupname,
-      groups     => $groups,
-      managehome => true,
-      require    => Group[$t_groupname],
-  }
-
-  group {
-    $t_groupname:
-      ensure => $t_group_present,
-      name   => $t_groupname,
-      gid    => $t_gid,
   }
 
 # download roller
@@ -128,38 +92,6 @@ class blogs_asf (
       require => [User[$r_username],Group[$r_username]],
   }
 
-# download tomcat
-
-  exec {
-    'download-tomcat':
-      command => "/usr/bin/wget -O ${downloaded_t_tarball} ${download_t_url}",
-      creates => $downloaded_t_tarball,
-      timeout => 1200,
-  }
-
-  file { $downloaded_t_tarball:
-    ensure  => file,
-    require => Exec['download-tomcat'],
-  }
-
-# extract the download and move it
-  exec {
-    'extract-tomcat':
-      command => "/bin/tar -xvzf ${t_tarball} && mv ${tomcat_build} ${parent_dir}", # lint:ignore:80chars
-      cwd     => $download_dir,
-      user    => 'root',
-      creates => "${install_dir}/NOTICE",
-      timeout => 1200,
-      require => [File[$downloaded_t_tarball],File[$parent_dir]],
-  }
-
-  exec {
-    'chown-tomcat-dirs':
-      command => "/bin/chown -R ${t_username}:${t_username} ${install_dir}",
-      timeout => 1200,
-      require => [User[$t_username],Group[$t_username]],
-  }
-
   apache::vhost {
     'blogs-vm-80':
       vhost_name     => '*',
@@ -183,7 +115,7 @@ class blogs_asf (
       mode   => '0755';
     $data_dir:
       ensure => directory,
-      owner  => $t_username,
+      owner  => $r_username,
       group  => $r_groupname,
       mode   => '0775';
 
