@@ -1,0 +1,46 @@
+#! /bin/bash
+
+SMDIR=<%= @docroot %>/sitemaps
+
+BZ_SITEMAPS=$(
+  <%= @script_dir%>/bugzilla_generate_sitemap.sh bugs bugzilla
+)
+
+SABZ_SITEMAPS=$(
+  <%= @script_dir%>/bugzilla_generate_sitemap.sh sabugs SpamAssassin
+)
+
+OOOBZ_SITEMAPS=$(
+  <%= @script_dir%>/bugzilla_generate_sitemap.sh ooobugs ooo
+)
+
+lastmod=`date +%Y-%m-%d`
+
+echo '<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+for SM in $BZ_SITEMAPS
+do
+  mv /tmp/$SM $SMDIR
+  echo -n "  <sitemap>
+    <loc>https://<%= @bz_url%>/sitemaps/$SM</loc>
+    <lastmod>${lastmod}</lastmod>
+  </sitemap>"
+done
+for SM in $SABZ_SITEMAPS
+do
+  mv /tmp/$SM $SMDIR
+  echo -n "  <sitemap>
+    <loc>https://<%= @bz_url %>/sitemaps/$SM</loc>
+    <lastmod>${lastmod}</lastmod>
+  </sitemap>"
+done
+for SM in $OOOBZ_SITEMAPS
+do
+  mv /tmp/$SM $SMDIR
+  echo -n "  <sitemap>
+    <loc>https://<%= @bz_url %>/sitemaps/$SM</loc>
+    <lastmod>${lastmod}</lastmod>
+  </sitemap>"
+done
+
+echo '</sitemapindex>'

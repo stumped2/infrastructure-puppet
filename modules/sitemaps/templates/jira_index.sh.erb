@@ -1,0 +1,22 @@
+#! /bin/bash
+
+SMDIR=<%= @docroot %>/sitemaps
+
+JIRA_SITEMAPS=$(
+  <%= @script_dir%>/jira_generate_sitemap.sh
+)
+
+lastmod=`date +%Y-%m-%d`
+
+echo '<?xml version="1.0" encoding="UTF-8"?>
+<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">'
+for SM in $JIRA_SITEMAPS
+do
+  mv /tmp/$SM $SMDIR
+  echo -n "  <sitemap>
+    <loc>https://<%= @jira_url%>/sitemaps/$SM</loc>
+    <lastmod>${lastmod}</lastmod>
+  </sitemap>"
+done
+
+echo '</sitemapindex>'
