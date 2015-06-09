@@ -89,6 +89,10 @@ perl::module:
     name: 'Net::LDAP'
     use_package : true
 
+postfix::aliases::maps:
+  www-data: 'root'
+  svn: 'root'
+
 snmp::snmpd_config:
   - 'disk /x1 10%'
   - 'disk /x1/svn 10%'

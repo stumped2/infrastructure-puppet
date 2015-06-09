@@ -7,6 +7,7 @@ classes:
   - dnsclient
   - fail2ban_asf::config
   - orthrus
+  - postfix::aliases
   - postfix::server
   - subversionclient
   - ulimit
@@ -146,6 +147,10 @@ ldapserver::install::ubuntu::1404::packages:
 ntp::interfaces:
     - eth0
     - lo
+
+postfix::aliases::maps:
+  postmaster: 'root'
+  root: 'root@apache.org'
 
 postfix::server::myhostname:             "%{::fqdn}"
 postfix::server::mydomain:               'apache.org'
