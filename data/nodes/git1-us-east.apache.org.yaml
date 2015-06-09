@@ -26,5 +26,8 @@ apache::mod::event::threadsperchild: '50'
 apache::mpm_module:         'event'
 apache::serveradmin:        'infrastructure@apache.org'
 
+postfix::aliases::maps:
+  git: '/dev/null'
+
 postfix::server::mydestination:          "%{::fqdn}, git.apache.org, localhost.%{::domain}, localhost"
 
