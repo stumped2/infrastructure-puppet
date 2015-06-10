@@ -7,10 +7,17 @@ classes:
   - apache::mod::rewrite
   - mysql::client
   - rootbin_asf
+  - sitemaps::bugzilla
   - vhosts_asf::modules
   - vhosts_asf::vhosts
 
 apache::default_vhost: false
+
+base::packages:
+  - bz-data
+
+sitemaps::bugzilla::dbuser: 'bugsreadonly'
+sitemaps::bugzilla::dbhost: 'mysql1-us-mid.priv.apache.org'
 
 vhosts_asf::modules::modules:
   remoteip:
