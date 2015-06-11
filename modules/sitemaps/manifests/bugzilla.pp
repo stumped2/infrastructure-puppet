@@ -35,7 +35,7 @@ class sitemaps::bugzilla (
 
   cron { 'bugzilla sitemap generate':
     ensure  => present,
-    command => "${script_dir}/bugzilla_sitemap_index.sh > ${docroot}/sitemap/sitemap_index.xml",
+    command => "${script_dir}/bugzilla_sitemap_index.sh > ${docroot}/sitemaps/sitemap_index.xml",
     minute  => 12,
     hour    => 6,
     user    => 'root',

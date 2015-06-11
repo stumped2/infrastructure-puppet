@@ -37,7 +37,7 @@ class sitemaps::jira (
 
   cron { 'jira sitemap generate':
     ensure  => present,
-    command => "${script_dir}/jira_sitemap_index.sh > ${docroot}/sitemap/sitemap_index.xml",
+    command => "${script_dir}/jira_sitemap_index.sh > ${docroot}/sitemaps/sitemap_index.xml",
     minute  => 12,
     hour    => 6,
     user    => 'root',
