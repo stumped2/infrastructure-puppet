@@ -135,6 +135,7 @@ continuum-pmc={reuse:pit-authorization:continuum-pmc}
 cordova={ldap:cn=cordova,ou=groups,dc=apache,dc=org}
 cordova-pmc={reuse:pit-authorization:cordova-pmc}
 corinthia=dortef,franz,gbg,ianc,jani,louis,orcmid,pescetti,pmkelly,svanteschubert,wave
+cotton=jfarrell,dlester,caniszczyk,vinodkone,tobi,sunil,yan,benh,hsaputra
 couchdb={ldap:cn=couchdb,ou=groups,dc=apache,dc=org}
 couchdb-pmc={reuse:pit-authorization:couchdb-pmc}
 creadur={ldap:cn=creadur,ou=groups,dc=apache,dc=org}
@@ -253,10 +254,6 @@ kylin=lukehan,jiangxu,liyang,yisong,mahongbin,xduo,ankur,jhyde,omalley,tdunning,
 labs={ldap:cn=labs,ou=groups,dc=apache,dc=org}
 labs-pmc={reuse:pit-authorization:labs-pmc}
 lens=amareshwari,arshadmatin,cdouglas,gunther,himanshugahlaut,jbonofre,jdhok,jghoman,prongs,raghavsingh,sharad,sreekanth,sriksun,sumasai,vikram,vinodkv
-lenya={ldap:cn=lenya,ou=groups,dc=apache,dc=org}
-lenya-pmc={reuse:pit-authorization:lenya-pmc}
-#Lenya summer of code group
-lenya-soc=soc-xzw
 libcloud={ldap:cn=libcloud,ou=groups,dc=apache,dc=org}
 libcloud-pmc={reuse:pit-authorization:libcloud-pmc}
 logging-pmc={reuse:pit-authorization:logging-pmc}
@@ -295,8 +292,8 @@ mrunit={ldap:cn=mrunit,ou=groups,dc=apache,dc=org}
 mrunit-pmc={reuse:pit-authorization:mrunit-pmc}
 myfaces={ldap:cn=myfaces,ou=groups,dc=apache,dc=org}
 myfaces-pmc={reuse:pit-authorization:myfaces-pmc}
-mysos=jfarrell,dlester,caniszczyk,vinodkone,tobi,sunil,yan,benh,hsaputra
-nifi=arvind,billie,bimargulies,wikier,drew,brock,apurtell,joewitt,tkurc,jcarey,devriesb,mcgilman,markap14,taftster,aldrin,jbarnabee,danbress,bbende
+nifi={ldap:cn=nifi,ou=groups,dc=apache,dc=org}
+nifi-pmc={reuse:pit-authorization:nifi-pmc}
 nutch={ldap:cn=nutch,ou=groups,dc=apache,dc=org}
 nutch-pmc={reuse:pit-authorization:nutch-pmc}
 nuvem=antelder,chintana,dwoods,jfclere,johnp,jsdelfino,lresende,pzf,rfeng,sagara,senaka,sgoyal,shankar
@@ -378,7 +375,7 @@ shiro-pmc={reuse:pit-authorization:shiro-pmc}
 singa=daijy,dinhtta,gates,jinyang,kaiping,tankianlee,tdunning,thejas,wangsh,wangwei,zhaojing
 sis={ldap:cn=sis,ou=groups,dc=apache,dc=org}
 sis-pmc={reuse:pit-authorization:sis-pmc}
-slider=vinodkv,jbonofre,acmurthy,mahadev,ddas,stevel,billie,tedyu,elserj,smohanty,jmaron,gourksaha
+slider=vinodkv,jbonofre,acmurthy,mahadev,ddas,stevel,billie,tedyu,elserj,smohanty,jmaron,gourksaha,yuliu
 sling={ldap:cn=sling,ou=groups,dc=apache,dc=org}
 sling-pmc={reuse:pit-authorization:sling-pmc}
 sling-emeritus=farra,jukka
@@ -450,8 +447,6 @@ velocity-pmc={reuse:pit-authorization:velocity-pmc}
 vxquery={ldap:cn=vxquery,ou=groups,dc=apache,dc=org}
 vxquery-pmc={reuse:pit-authorization:vxquery-pmc}
 wave=aadamchik,akaplanov,al,anorth,awatkins,ben,danield,dpeterson,josephg,hearnden,lennard,lindner,michael,ohler,purserj,roughley,sgala,soren,tad,upayavira,vjrj,vsiveton,weis,yurize,zdwang,stenyak,jblossom
-whirr={ldap:cn=whirr,ou=groups,dc=apache,dc=org}
-whirr-pmc={reuse:pit-authorization:whirr-pmc}
 wicket={ldap:cn=wicket,ou=groups,dc=apache,dc=org}
 wicket-pmc={reuse:pit-authorization:wicket-pmc}
 wink={ldap:cn=wink,ou=groups,dc=apache,dc=org}
@@ -530,6 +525,9 @@ svnadmins={reuse:pit-authorization:svnadmins}
 [/allura]
 @allura = rw
 
+[/allura/site]
+@allura = rw
+
 [/ambari]
 @ambari = rw
 
@@ -586,6 +584,11 @@ svnadmins={reuse:pit-authorization:svnadmins}
 
 [/axis]
 @axis = rw
+
+# Temporary. Remove when Attic PMC perms removed.
+[/axis/site]
+@axis = rw
+@attic-pmc = rw
 
 [/beehive]
 * = r
@@ -664,7 +667,6 @@ svnadmins={reuse:pit-authorization:svnadmins}
 
 [/cocoon]
 @cocoon = rw
-@lenya = rw
 
 [/comdev]
 @comdev= rw
@@ -685,7 +687,7 @@ ea = rw
 [/commons/_moved_to_git]
 * = r
 
-# Note: since commons/proper/[lang|math] have now been moved under _moved_to_git and
+# Note: since commons/proper/[lang|math|scxml] have now been moved under _moved_to_git and
 # only a README remains, there is now no need to make those directory trees read-only.
 
 [/concom]
@@ -760,7 +762,7 @@ ea = rw
 @db-torque = rw
 
 [/deltacloud]
-@deltacloud = rw
+@directmemory = rw
 
 [/deltaspike]
 @deltaspike = rw
@@ -769,7 +771,7 @@ ea = rw
 @devicemap = rw
 
 [/directmemory]
-@directmemory = rw
+@attic-pmc = rw
 
 [/directory]
 @directory = rw
@@ -784,7 +786,7 @@ ea = rw
 @empire-db = rw
 
 [/esme]
-* = r
+@attic-pmc = rw
 
 [/etch]
 @etch = rw
@@ -835,7 +837,6 @@ ea = rw
 [/forrest]
 @forrest = rw
 @cocoon = rw
-@lenya = rw
 
 [/geronimo]
 @geronimo = rw
@@ -943,6 +944,9 @@ ea = rw
 [/incubator/corinthia]
 @corinthia = rw
 
+[/incubator/cotton]
+@cotton = rw
+
 [/incubator/datafu]
 @datafu = rw
 
@@ -1002,12 +1006,6 @@ ea = rw
 
 [/incubator/mrql]
 @mrql= rw
-
-[/incubator/mysos]
-@mysos = rw
-
-[/incubator/nifi/site]
-@nifi = rw
 
 [/incubator/nmaven]
 * = r
@@ -1200,16 +1198,7 @@ ea = rw
 @committers  = rw
 
 [/lenya]
-@lenya = rw
-@cocoon = rw
-@forrest = rw
-
-[/lenya/sandbox]
-@lenya = rw
-@cocoon = rw
-@forrest = rw
-@lenya-soc = rw
-
+@attic-pmc = rw
 
 [/libcloud]
 * = r 
@@ -1380,6 +1369,9 @@ ea = rw
 
 [/myfaces]
 @myfaces = rw
+
+[/nifi]
+@nifi = rw
 
 [/nutch]
 @nutch = rw
@@ -1731,7 +1723,6 @@ svn-role = rw
 # @xml-pmc = rw
 @cocoon = rw
 @forrest = rw
-@lenya = rw
 @xalan = rw
 @xerces = rw
 @xerces-j = rw
@@ -1746,7 +1737,6 @@ svn-role = rw
 # @xml-pmc = rw
 @cocoon = rw
 @forrest = rw
-@lenya = rw
 @xalan = rw
 @xerces = rw
 @xerces-j = rw
