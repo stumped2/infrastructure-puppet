@@ -2,6 +2,7 @@
 classes:
   - apache
   - apache::mod::authnz_ldap
+  - apache::mod::geoip
   - apache::mod::ssl
   - elasticsearch
   - loggy
@@ -46,6 +47,7 @@ apache::mod::event::serverlimit: '10'
 apache::mod::event::startservers: '5'
 apache::mod::event::threadlimit: '250'
 apache::mod::event::threadsperchild: '50'
+
 
 apache::mod::status::allow_from:
   - all
